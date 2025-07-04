@@ -1,0 +1,72 @@
+<div class="max-w-3xl mx-auto p-6 bg-white rounded shadow-md">
+  <h2 class="text-2xl font-bold mb-6 text-center">Assignments for Course {{ courseId }}</h2>
+
+  <div *ngIf="error" class="text-red-500 mb-4 text-center">{{ error }}</div>
+
+  <!-- New Assignment Input -->
+  <div class="mb-4 space-y-2">
+    <input
+      [(ngModel)]="newAssignmentText"
+      placeholder="New assignment text"
+      class="border px-3 py-2 w-full rounded"
+    />
+    <input
+      type="date"
+      [(ngModel)]="newAssignmentDueDate"
+      class="border px-3 py-2 w-full rounded"
+      placeholder="Due date"
+    />
+    <button
+      (click)="createAssignment()"
+      class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+    >
+      Add Assignment
+    </button>
+  </div>
+
+  <div *ngIf="assignments.length === 0" class="text-center text-gray-600">
+    No assignments found.
+  </div>
+
+  <!-- Assignment List -->
+  <ul>
+    <li *ngFor="let assignment of assignments" class="mb-4 border p-4 rounded shadow-sm">
+      <div *ngIf="editingAssignmentId !== assignment.id">
+        <div class="font-semibold">{{ assignment.assignmentText }}</div>
+        <div class="text-gray-600 text-sm">Due Date: {{ assignment.dueDate | date:'mediumDate' }}</div>
+        <button (click)="startEditing(assignment)" class="mt-2 text-blue-600 hover:underline">
+          Edit
+        </button>
+        <button (click)="deleteAssignment(assignment.id)" class="ml-2 mt-2 text-red-600 hover:underline">
+          Delete
+        </button>
+      </div>
+
+      <div *ngIf="editingAssignmentId === assignment.id" class="space-y-2">
+        <input
+          [(ngModel)]="editingAssignmentText"
+          class="border px-3 py-2 w-full rounded"
+          placeholder="Edit assignment text"
+        />
+        <input
+          type="date"
+          [(ngModel)]="editingAssignmentDueDate"
+          class="border px-3 py-2 w-full rounded"
+          placeholder="Edit due date"
+        />
+        <button
+          (click)="updateAssignment()"
+          class="mt-2 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
+        >
+          Save
+        </button>
+        <button
+          (click)="cancelEditing()"
+          class="mt-2 ml-2 bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500 transition"
+        >
+          Cancel
+        </button>
+      </div>
+    </li>
+  </ul>
+</div>

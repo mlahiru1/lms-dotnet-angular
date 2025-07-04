@@ -1,0 +1,24 @@
+<div class="p-4 max-w-2xl mx-auto bg-white shadow rounded">
+  <h2 class="text-2xl font-bold mb-4">Notifications</h2>
+
+  <div class="mb-4">
+    <textarea [(ngModel)]="newMessage" rows="3" placeholder="Write a message..."
+              class="w-full border p-2 rounded"></textarea>
+    <button (click)="sendNotification()" class="mt-2 bg-blue-600 text-white px-4 py-2 rounded">
+      Send Notification
+    </button>
+  </div>
+
+  <div *ngIf="message" class="text-green-600 mb-2">{{ message }}</div>
+  <div *ngIf="error" class="text-red-500 mb-2">{{ error }}</div>
+
+  <ul class="divide-y">
+    <li *ngFor="let note of notifications" class="py-2 flex justify-between items-start">
+      <div>
+        <strong>{{ note.username }}</strong>: {{ note.message }}<br />
+        <small class="text-gray-500">{{ note.createdAt | date:'short' }}</small>
+      </div>
+      <button (click)="deleteNotification(note.id)" class="text-red-500 hover:underline text-sm">Delete</button>
+    </li>
+  </ul>
+</div>

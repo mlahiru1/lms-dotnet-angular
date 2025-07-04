@@ -1,0 +1,63 @@
+<div class="min-h-screen flex items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="w-full max-w-4xl bg-white p-10 rounded-lg shadow-md">
+    <div class="text-center mb-8">
+      <h2 class="text-4xl font-bold text-gray-900">Register</h2>
+    </div>
+    <form class="space-y-6" (ngSubmit)="register()">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div>
+          <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+          <input 
+            id="username" 
+            name="username" 
+            type="text" 
+            required 
+            [(ngModel)]="userData.username"
+            class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          >
+        </div>
+        <div>
+          <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+          <input 
+            id="password" 
+            name="password" 
+            type="password" 
+            required 
+            [(ngModel)]="userData.password"
+            class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          >
+        </div>
+        <div>
+          <label for="role" class="block text-sm font-medium text-gray-700">Role</label>
+          <select
+            id="role"
+            name="role"
+            [(ngModel)]="userData.role"
+            class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          >
+            <option value="Student">Student</option>
+            <option value="Teacher">Teacher</option>
+            <option value="Admin">Admin</option>
+          </select>
+        </div>
+      </div>
+
+      <div *ngIf="errorMessage" class="text-red-600 text-sm text-center">
+        {{errorMessage}}
+      </div>
+
+      <div *ngIf="successMessage" class="text-green-600 text-sm text-center">
+        {{successMessage}}
+      </div>
+
+      <div>
+        <button 
+          type="submit" 
+          class="w-full flex justify-center py-3 px-6 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        >
+          Register
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

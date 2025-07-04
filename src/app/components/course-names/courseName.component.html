@@ -1,0 +1,57 @@
+<h2 class="text-xl font-bold mb-4 text-center">Course Management</h2>
+
+<!-- Create Course -->
+<div class="bg-white shadow-md rounded p-4 max-w-md mx-auto mb-6">
+  <h3 class="font-semibold mb-2">Add Course</h3>
+  <input [(ngModel)]="newCourse.courseId" placeholder="Course ID"
+         class="w-full mb-2 p-2 border rounded" />
+  <input [(ngModel)]="newCourse.courseName" placeholder="Course Name"
+         class="w-full mb-2 p-2 border rounded" />
+  <button (click)="createCourse()" class="bg-blue-600 text-white px-4 py-2 rounded">
+    Create
+  </button>
+</div>
+
+<!-- List Courses -->
+<div class="max-w-3xl mx-auto">
+  <table class="w-full border text-sm">
+    <thead>
+      <tr class="bg-gray-100">
+        <th class="p-2 border">Course ID</th>
+        <th class="p-2 border">Course Name</th>
+        <th class="p-2 border">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let course of courses">
+        <td class="p-2 border">{{ course.courseId }}</td>
+        <td class="p-2 border">
+          <input *ngIf="selectedCourseId === course.courseId"
+                 [(ngModel)]="updateName"
+                 class="w-full p-1 border rounded" />
+          <span *ngIf="selectedCourseId !== course.courseId">
+            {{ course.courseName }}
+          </span>
+        </td>
+        <td class="p-2 border text-center">
+          <ng-container *ngIf="selectedCourseId === course.courseId; else normal">
+            <button (click)="updateCourse()" class="bg-green-500 text-white px-2 py-1 rounded mr-2">
+              Save
+            </button>
+            <button (click)="cancelEdit()" class="bg-gray-500 text-white px-2 py-1 rounded">
+              Cancel
+            </button>
+          </ng-container>
+          <ng-template #normal>
+            <button (click)="startEdit(course)" class="bg-yellow-500 text-white px-2 py-1 rounded mr-2">
+              Edit
+            </button>
+            <button (click)="deleteCourse(course.courseId)" class="bg-red-500 text-white px-2 py-1 rounded">
+              Delete
+            </button>
+          </ng-template>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

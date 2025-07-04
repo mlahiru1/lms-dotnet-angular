@@ -1,0 +1,73 @@
+<div class="p-6 max-w-4xl mx-auto">
+  <h2 class="text-2xl font-semibold mb-4">Enrollments</h2>
+
+  <!-- Create Form -->
+  <div class="mb-6">
+    <h3 class="text-lg font-medium mb-2">Create Enrollment</h3>
+    <div class="flex gap-2 mb-2">
+      <input [(ngModel)]="newEnrollment.courseId"
+             type="text"
+             class="border border-gray-300 p-2 rounded w-1/2"
+             placeholder="Course ID" />
+      <input [(ngModel)]="newEnrollment.studentId"
+             type="text"
+             class="border border-gray-300 p-2 rounded w-1/2"
+             placeholder="Student ID" />
+    </div>
+    <button (click)="createEnrollment()"
+            class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+      Create
+    </button>
+  </div>
+
+  <!-- Edit Form -->
+  <div *ngIf="editId !== null" class="mb-6 border-t border-gray-200 pt-4">
+    <h3 class="text-lg font-medium mb-2">Edit Enrollment</h3>
+    <div class="flex gap-2 mb-2">
+      <input [(ngModel)]="editEnrollment.courseId"
+             type="text"
+             class="border border-gray-300 p-2 rounded w-1/2"
+             placeholder="Course ID" />
+      <input [(ngModel)]="editEnrollment.studentId"
+             type="text"
+             class="border border-gray-300 p-2 rounded w-1/2"
+             placeholder="Student ID" />
+    </div>
+    <button (click)="updateEnrollment()"
+            class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 mr-2">
+      Update
+    </button>
+    <button (click)="editId = null"
+            class="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500">
+      Cancel
+    </button>
+  </div>
+
+  <!-- Grouped Enrollments with Dropdown -->
+  <div *ngFor="let group of groupedEnrollments | keyvalue" class="mt-4">
+    <div class="flex justify-between items-center bg-gray-100 p-3 rounded-md shadow-sm">
+      <h4 class="text-lg font-semibold">Student ID: {{ group.key }}</h4>
+      <button (click)="toggleGroup(group.key)"
+              class="text-sm text-blue-600 underline hover:text-blue-800">
+        {{ expandedGroups[group.key] ? 'Hide Details' : 'Show Details' }}
+      </button>
+    </div>
+
+    <div *ngIf="expandedGroups[group.key]" class="mt-2 pl-4">
+      <ul class="list-disc">
+        <li *ngFor="let e of group.value" class="mb-2">
+          <span class="font-medium">Course ID:</span> {{ e.courseId }} |
+          <span class="font-medium">Enrolled At:</span> {{ e.enrolledAt | date:'short' }}
+          <button (click)="setEdit(e)"
+                  class="ml-2 bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600">
+            Edit
+          </button>
+          <button (click)="deleteEnrollment(e.id)"
+                  class="ml-1 bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700">
+            Delete
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

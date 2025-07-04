@@ -1,0 +1,19 @@
+<div class="p-4 max-w-2xl mx-auto">
+  <h2 class="text-3xl font-bold mb-6 text-gray-800 text-center">All Notifications</h2>
+
+  <div *ngIf="error" class="text-red-600 text-center mb-4">{{ error }}</div>
+  <div *ngIf="!notifications.length && !error" class="text-gray-500 text-center">No notifications found.</div>
+
+  <div class="flex flex-col gap-4">
+    <div
+      *ngFor="let notification of notifications"
+      class="bg-white border border-gray-200 rounded-lg shadow-md p-4 hover:shadow-lg transition duration-300"
+    >
+      <div class="flex justify-between items-center mb-2">
+        <h3 class="text-lg font-semibold text-blue-600">{{ notification.username }}</h3>
+        <span class="text-sm text-gray-500">{{ notification.createdAt | date:'short' }}</span>
+      </div>
+      <p class="text-gray-700">{{ notification.message }}</p>
+    </div>
+  </div>
+</div>

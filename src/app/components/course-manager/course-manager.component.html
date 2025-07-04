@@ -1,0 +1,27 @@
+<div class="max-w-3xl mx-auto p-6 bg-white rounded shadow-md">
+  <h2 class="text-2xl font-bold mb-6 text-center">Course Details</h2>
+
+  <div *ngIf="error" class="text-red-500 mb-4 text-center">{{ error }}</div>
+
+  <div *ngIf="course; else loadingOrEmpty">
+    <p class="mb-2"><strong>Course ID:</strong> {{ course.courseId }}</p>
+    <p class="mb-6"><strong>Course Name:</strong> {{ course.courseName }}</p>
+
+    <h3 class="font-semibold mb-2 text-lg">{{ course.assignment ? 'Update Assignment' : 'Create Assignment' }}</h3>
+
+    <textarea [(ngModel)]="updateData.assignment" 
+              placeholder="Enter assignment details here"
+              class="border px-3 py-2 w-full mb-4 rounded" rows="5"></textarea>
+
+    <div class="flex gap-3">
+      <button (click)="saveAssignment()"
+              class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">
+        {{ course.assignment ? 'Update Assignment' : 'Create Assignment' }}
+      </button>
+    </div>
+  </div>
+
+  <ng-template #loadingOrEmpty>
+    <p class="text-center text-gray-600">Loading course information...</p>
+  </ng-template>
+</div>

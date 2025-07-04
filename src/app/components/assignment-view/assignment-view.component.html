@@ -1,0 +1,20 @@
+<div class="max-w-3xl mx-auto p-6 bg-white rounded shadow-md">
+  <h2 class="text-2xl font-bold mb-6 text-center">Assignments</h2>
+
+  <div *ngIf="error" class="text-red-500 mb-4 text-center">{{ error }}</div>
+
+  <div *ngIf="assignments.length > 0; else noAssignments">
+    <ul class="space-y-4">
+      <li *ngFor="let assignment of assignments" class="p-4 border rounded shadow-sm">
+        <div class="font-semibold mb-1">{{ assignment.assignmentText }}</div>
+        <div class="text-sm text-gray-600">
+          Due Date: {{ assignment.dueDate | date:'mediumDate' }}
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <ng-template #noAssignments>
+    <p class="text-center text-gray-600">No assignments available for this course.</p>
+  </ng-template>
+</div>
